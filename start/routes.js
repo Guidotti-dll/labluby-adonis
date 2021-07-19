@@ -11,6 +11,8 @@ Route.put('passwords', 'ForgotPasswordController.update').validator('ResetPasswo
 Route.get('/files/:id', 'FileController.show')
 Route.group(() => {
   Route.post('/files', 'FileController.store')
-  Route.resource('projects', 'ProjectController').apiOnly()
+  Route.resource('projects', 'ProjectController')
+    .apiOnly()
+    .validator(new Map([[['projects.store'], ['Project']]]))
   Route.resource('projects.tasks', 'TaskController').apiOnly()
 }).middleware(['auth'])
